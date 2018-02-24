@@ -1,92 +1,95 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <title>Pinterest!</title>
-  </head>
-  <body>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <header class="header">
-      <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent">
-        <div class="container">
-          <a class="navbar-brand" href="#">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <title>Pinterest!</title>
+</head>
+
+<body>
+
+  <header class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent">
+      <div class="container">
+        <a class="navbar-brand" href="#">
             <img class="navbar-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/35/Pinterest_Logo.svg" alt="Logo">
           </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse nav-menu justify-content-end" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <button class="btn btn-outline-secondary" id="logIn">Iniciar sesión</button>
-              <button class="btn btn-outline-secondary" id="logOut">Cerrar sesión</button>
-            </div>
+        <div class="collapse navbar-collapse nav-menu justify-content-end" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <button class="btn btn-outline-secondary" id="logIn">Iniciar sesión</button>
+            <button class="btn btn-outline-secondary" id="logOut">Cerrar sesión</button>
           </div>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
+  </header>
 
 
-    <h1 id="welcome">Bienvenido </h1>
+  <h1 id="welcome"> </h1>
 
-    <!-- <button class="btn btn-primary" onclick="showUser()" id="">Subir</button> -->
+  <!-- <button class="btn btn-primary" onclick="showUser()" id="">Subir</button> -->
 
 
-    <div class="container" id="uploadPost">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card" style="width: 18rem;">
-            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-              <div class="mdl-card__supporting-text mdl-color-text--grey-600" id="messagesDiv">
-                <h6>Choose File</h6>
-                <input type="file" id="file" name="file"/>
-              </div>
+  <div class="container" id="uploadPost">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card" style="width: 18rem;">
+          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+            <div class="mdl-card__supporting-text mdl-color-text--grey-600" id="messagesDiv">
+              <h6>Choose File</h6>
+              <input type="file" id="file" name="file" />
             </div>
-            <div class="card-body">
-              <form id="message-form" action="#">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="new-post-title">
-                  <label class="mdl-textfield__label" for="new-post-title">Post title...</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <textarea class="mdl-textfield__input" rows="3" id="new-post-message"></textarea>
-                  <label class="mdl-textfield__label" for="new-post-message">Post message...</label>
-                </div>
-                <button type="submit" class="btn btn-primary">
+          </div>
+          <div class="card-body">
+            <form id="message-form" action="#">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="new-post-title">
+                <label class="mdl-textfield__label" for="new-post-title">Post title...</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <textarea class="mdl-textfield__input" rows="3" id="new-post-message"></textarea>
+                <label class="mdl-textfield__label" for="new-post-message">Post message...</label>
+              </div>
+              <button type="submit" class="btn btn-primary">
                   Add post
                 </button>
-              </form>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyAc_tcjvAaj3BRsyWesKVlcl-gTiWLWUJI",
-        authDomain: "learn-firebase-12664.firebaseapp.com",
-        databaseURL: "https://learn-firebase-12664.firebaseio.com",
-        projectId: "learn-firebase-12664",
-        storageBucket: "learn-firebase-12664.appspot.com",
-        messagingSenderId: "861890638653"
-      };
-      firebase.initializeApp(config);
-    </script>
+  <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAc_tcjvAaj3BRsyWesKVlcl-gTiWLWUJI",
+      authDomain: "learn-firebase-12664.firebaseapp.com",
+      databaseURL: "https://learn-firebase-12664.firebaseio.com",
+      projectId: "learn-firebase-12664",
+      storageBucket: "learn-firebase-12664.appspot.com",
+      messagingSenderId: "861890638653"
+    };
+    firebase.initializeApp(config);
+  </script>
 
-    <script src='main.js'></script>
-  </body>
+  <script src='main.js'></script>
+</body>
+
 </html>
