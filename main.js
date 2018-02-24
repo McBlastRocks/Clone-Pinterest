@@ -5,6 +5,9 @@ var messageForm = document.getElementById('message-form');
 var titleInput = document.getElementById('new-post-title');
 var messageInput = document.getElementById('new-post-message');
 var welcome = document.getElementById('welcome');
+var cardTitle = document.getElementById('title');
+var cardText = document.getElementById('body');
+var cardImage = document.getElementById('image');
 var usuario = {};
 var ref = 'usuarios';
 var storageRef = firebase.storage().ref();
@@ -54,21 +57,31 @@ function initApp() {
       btnCloseSession.style.display = 'inline-block';
       uploadPost.style.display = 'inline-block';
       welcome.style.display = 'inline-block';
-      welcome.innerHTML += '<span> Bienvenido ' + usuario.nombre + '</span>';
+      welcome.innerHTML = '<span> Bienvenido ' + usuario.nombre + '</span>';
       pushUser();
     } else {
       btnInitSesion.style.display = 'inline-block';
       btnCloseSession.style.display = 'none';
       uploadPost.style.display = 'none';
       welcome.style.display = 'none';
+      welcome.innerHTML = '';
     }
   });
 }
 
-function showUser() {
-  firebase.database().ref(ref).on('value', data => {
-    console.log(data.val())
-  })
+function showContent(postKey) {
+  console.log('calling to show user function');
+  console.log('post key: ' + postKey);
+  firebase.database().ref('posts' + '/' + postKey).on('value', data => {
+    console.log(data.val());
+
+    console.log(data.val().title);
+    console.log(data.val().body);
+    console.log(data.val().authorPic);
+    cardTitle.innerHTML = data.val().title;
+    cardText.innerHTML = data.val().body;
+    cardImage.src = data.val().authorPic;
+  });
 }
 
 function pushUser() {
@@ -92,25 +105,26 @@ function writeNewPost(uid, username, picture, title, body) {
     console.log(snapshot.metadata);
     var url = snapshot.downloadURL;
     console.log('File available at', url);
+
     // A post entry.
     var postData = {
       author: username,
       uid: uid,
       body: body,
       title: title,
-      authorPic: url
+      authorPic: url,
     };
-    console.log(postData)
+    console.log('postdata');
+    console.log(postData);
+
     // Get a key for a new Post.
     var newPostKey = firebase.database().ref().child('posts').push().key;
-
-
 
     // // Write the new post's data simultaneously in the posts list and the user's post list.
     var updates = {};
     updates['/posts/' + newPostKey] = postData;
     updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-
+    showContent(newPostKey);
     return firebase.database().ref().update(updates);
   }).catch(function(error) {
     // [START onfailure]
