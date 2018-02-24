@@ -8,6 +8,7 @@ var welcome = document.getElementById('welcome');
 var cardTitle = document.getElementById('title');
 var cardText = document.getElementById('body');
 var cardImage = document.getElementById('image');
+var chooseFile = document.getElementById('file');
 var usuario = {};
 var ref = 'usuarios';
 var storageRef = firebase.storage().ref();
@@ -65,6 +66,10 @@ function initApp() {
       uploadPost.style.display = 'none';
       welcome.style.display = 'none';
       welcome.innerHTML = '';
+      cardTitle.innerHTML = '';
+      cardText.innerHTML = '';
+      cardImage.src = '';
+      chooseFile.value = '';
     }
   });
 }
