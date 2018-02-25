@@ -5,25 +5,29 @@ var messageForm = document.getElementById('message-form');
 var titleInput = document.getElementById('new-post-title');
 var messageInput = document.getElementById('new-post-message');
 var welcome = document.getElementById('welcome');
-var usuario = {}
-var ref = 'usuarios'
+var cardTitle = document.getElementById('title');
+var cardText = document.getElementById('body');
+var cardImage = document.getElementById('image');
+var chooseFile = document.getElementById('file');
+var usuario = {};
+var ref = 'usuarios';
 var storageRef = firebase.storage().ref();
-var imagePinterest = ''
+var imagePinterest = '';
 document.getElementById('file').addEventListener('change', handleFileSelect, false);
 
 //función del botón de iniciar sesión
 btnInitSesion.addEventListener('click', function() {
- var provider = new firebase.auth.GoogleAuthProvider();
- provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  var provider = new firebase.auth.GoogleAuthProvider();
+  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
- firebase.auth().signInWithPopup(provider).then(function(result) {
-   // This gives you a Google Access Token. You can use it to access the Google API.
-   var token = result.credential.accessToken;
-   // The signed-in user info.
-   var user = result.user;
- }).catch(function(error) {
-   console.log(error);
- });
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+  }).catch(function(error) {
+    console.log(error);
+  });
 });
 
 messageForm.onsubmit = function(e) {
@@ -38,76 +42,94 @@ messageForm.onsubmit = function(e) {
 
 //function cerrar btnInitSesion
 btnCloseSession.addEventListener('click', function() {
- firebase.auth().signOut();
+  firebase.auth().signOut();
 });
 
 function initApp() {
- firebase.auth().onAuthStateChanged(function(user) {
-   if (user) {
-     btnInitSesion.style.display = 'none';
-     usuario = {
-       nombre: user.displayName,
-       email: user.email,
-       img: user.photoURL,
-       uid: user.uid,
-     };
-     btnCloseSession.style.display = 'inline-block';
-     uploadPost.style.display = 'inline-block';
-     welcome.innerHTML += '<span>' + usuario.nombre +'</span>';
-     pushUser();
-   } else {
-     btnInitSesion.style.display = 'inline-block';
-     btnCloseSession.style.display = 'none';
-     uploadPost.style.display = 'none'
-   }
- });
-}
-function showUser() {
-  firebase.database().ref(ref).on('value', data => {
-    console.log(data.val())
-  })
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      btnInitSesion.style.display = 'none';
+      usuario = {
+        nombre: user.displayName,
+        email: user.email,
+        img: user.photoURL,
+        uid: user.uid,
+      };
+      btnCloseSession.style.display = 'inline-block';
+      uploadPost.style.display = 'inline-block';
+      welcome.style.display = 'inline-block';
+      welcome.innerHTML = '<span> Bienvenido ' + usuario.nombre + '</span>';
+      pushUser();
+    } else {
+      btnInitSesion.style.display = 'inline-block';
+      btnCloseSession.style.display = 'none';
+      uploadPost.style.display = 'none';
+      welcome.style.display = 'none';
+      welcome.innerHTML = '';
+      cardTitle.innerHTML = '';
+      cardText.innerHTML = '';
+      cardImage.src = '';
+      chooseFile.value = '';
+    }
+  });
 }
 
-function pushUser(){
+function showContent(postKey) {
+  console.log('calling to show user function');
+  console.log('post key: ' + postKey);
+  firebase.database().ref('posts' + '/' + postKey).on('value', data => {
+    console.log(data.val());
+
+    console.log(data.val().title);
+    console.log(data.val().body);
+    console.log(data.val().authorPic);
+    cardTitle.innerHTML = data.val().title;
+    cardText.innerHTML = data.val().body;
+    cardImage.src = data.val().authorPic;
+  });
+}
+
+function pushUser() {
   firebase.database().ref(ref + "/" + usuario.uid).set(usuario)
-          .catch( error => {
-            console.log(error)
-          })
+    .catch(error => {
+      console.log(error)
+    })
 }
 
 function newPostForCurrentUser(title, text) {
   writeNewPost(usuario.uid, usuario.nombre,
-        imagePinterest, title, text);
+    imagePinterest, title, text);
 }
 
 function writeNewPost(uid, username, picture, title, body) {
   var metadata = {
-        'contentType': picture.type
-      };
+    'contentType': picture.type
+  };
   storageRef.child('images/' + picture.name).put(picture, metadata).then(function(snapshot) {
     console.log('Uploaded', snapshot.totalBytes, 'bytes.');
     console.log(snapshot.metadata);
     var url = snapshot.downloadURL;
     console.log('File available at', url);
+
     // A post entry.
     var postData = {
       author: username,
       uid: uid,
       body: body,
       title: title,
-      authorPic: url
+      authorPic: url,
     };
-     console.log(postData)
+    console.log('postdata');
+    console.log(postData);
+
     // Get a key for a new Post.
     var newPostKey = firebase.database().ref().child('posts').push().key;
-
-
 
     // // Write the new post's data simultaneously in the posts list and the user's post list.
     var updates = {};
     updates['/posts/' + newPostKey] = postData;
     updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-
+    showContent(newPostKey);
     return firebase.database().ref().update(updates);
   }).catch(function(error) {
     // [START onfailure]
@@ -117,15 +139,15 @@ function writeNewPost(uid, username, picture, title, body) {
 }
 
 function handleFileSelect(evt) {
-      evt.stopPropagation();
-      evt.preventDefault();
-      var file = evt.target.files[0];
+  evt.stopPropagation();
+  evt.preventDefault();
+  var file = evt.target.files[0];
 
-      imagePinterest = file;
-    }
+  imagePinterest = file;
+}
 
 
 window.onload = function() {
- initApp();
+  initApp();
 
 };
