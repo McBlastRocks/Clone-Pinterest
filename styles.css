@@ -1,9 +1,20 @@
-#logIn{
+#logIn, #uploadPost, #welcome,{
 	display: none;
 }
-#uploadPost{
-	display: none
+
+#Welcomes{
+	border-color: transparent;
+	cursor: default;
 }
+
+#Welcomes:hover {
+	color: #6c757d;
+	background-color: transparent;
+	background-image: none;
+	border-color: none;
+}
+
+
 
 .index-wrap{
   /*background-image: url("assets/img/fondospotify.jpg");*/

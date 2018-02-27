@@ -9,6 +9,7 @@ var cardTitle = document.getElementById('title');
 var cardText = document.getElementById('body');
 var cardImage = document.getElementById('image');
 var chooseFile = document.getElementById('file');
+var contentPost = document.getElementById('contentPost');
 var usuario = {};
 var ref = 'usuarios';
 var storageRef = firebase.storage().ref();
@@ -58,13 +59,15 @@ function initApp() {
       btnCloseSession.style.display = 'inline-block';
       uploadPost.style.display = 'inline-block';
       welcome.style.display = 'inline-block';
-      welcome.innerHTML = '<span> Bienvenido ' + usuario.nombre + '</span>';
+      welcome.innerHTML =  usuario.nombre ;
+      contentPost.style.display = 'none'
       pushUser();
     } else {
       btnInitSesion.style.display = 'inline-block';
       btnCloseSession.style.display = 'none';
       uploadPost.style.display = 'none';
       welcome.style.display = 'none';
+      contentPost.style.display = 'none'
       welcome.innerHTML = '';
       cardTitle.innerHTML = '';
       cardText.innerHTML = '';
@@ -86,6 +89,7 @@ function showContent(postKey) {
     cardTitle.innerHTML = data.val().title;
     cardText.innerHTML = data.val().body;
     cardImage.src = data.val().authorPic;
+    contentPost.style.display = 'inline-block';
   });
 }
 
